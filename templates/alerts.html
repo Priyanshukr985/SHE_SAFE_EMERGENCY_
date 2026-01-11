@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SheSafe Control Room</title>
+    <style>
+        body {
+            background: #081b29;
+            color: white;
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #ff4d6d;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #0d2a40;
+        }
+
+        th, td {
+            border: 1px solid #9B59B6;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #9B59B6;
+            color: black;
+        }
+
+        tr:nth-child(even) {
+            background-color: #102f4a;
+        }
+
+        tr:hover {
+            background-color: #183f5f;
+        }
+
+        a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .danger {
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        .safe {
+            color: #00ffcc;
+        }
+
+        .map-box {
+            width: 300px;
+            height: 150px;
+            border-radius: 10px;
+            border: 2px solid #9B59B6;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>🚨 SheSafe Emergency Control Room</h2>
+
+<table>
+    <tr>
+        <th>User</th>
+        <th>Phone</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Location</th>
+        <th>Map</th>
+    </tr>
+
+    {% for alert in alerts %}
+    <tr>
+        <td>{{ alert.user }}</td>
+        <td>{{ alert.phone }}</td>
+        <td>{{ alert.time }}</td>
+        <td class="danger">ACTIVE</td>
+        <td>
+            <a href="{{ alert.location }}" target="_blank">Open Map</a>
+        </td>
+        <td>
+            <iframe 
+                class="map-box"
+                src="https://maps.google.com/maps?q={{ alert.latitude }},{{ alert.longitude }}&z=15&output=embed">
+            </iframe>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
